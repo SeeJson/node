@@ -19,6 +19,11 @@ type Value interface {
 	len() int
 }
 
+// Len the number of cache entries
+func (c *Cache) Len() int {
+	return c.ll.Len()
+}
+
 func New(maxBytes int64, onEvicted func(string, Value)) *Cache {
 	return &Cache{
 		maxBytes:  maxBytes,
