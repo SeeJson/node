@@ -101,7 +101,9 @@ func rotate(matrix [][]int) {
 pow(x, n)
 求 x的n次方
 复杂度分析
+
 	时间复杂度：�(log⁡�)*O*(log*n*)，即为递归的层数。
+
 空间复杂度：�(log⁡�)*O*(log*n*)，即为递归的层数。这是由于递归的函数调用会使用栈空间。
 */
 func quickMul(x float64, n int) float64 {
@@ -153,4 +155,20 @@ func maxSubArray(nums []int) int {
 		}
 	}
 	return max
+}
+
+/*
+颜色分类，三种颜色有序排序
+*/
+func sortColors(nums []int) {
+	p0, p2 := 0, len(nums)-1
+	for i := 0; i <= p2; i++ {
+		for ; i <= p2 && nums[i] == 2; p2-- {
+			nums[i], nums[p2] = nums[p2], nums[i]
+		}
+		if nums[i] == 0 {
+			nums[i], nums[p0] = nums[p0], nums[i]
+			p0++
+		}
+	}
 }

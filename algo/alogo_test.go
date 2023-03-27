@@ -107,3 +107,24 @@ func Test_maxSubArray(t *testing.T) {
 		})
 	}
 }
+
+func Test_sortColors(t *testing.T) {
+	type args struct {
+		nums []int
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		// TODO: Add test cases.
+		{
+			args: args{[]int{1, 2, 2, 0, 0, 0, 1, 2, 0}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			sortColors(tt.args.nums)
+			t.Log("nums:", tt.args.nums)
+		})
+	}
+}
