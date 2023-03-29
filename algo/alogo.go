@@ -3,6 +3,7 @@ package algo
 import (
 	"bufio"
 	"encoding/gob"
+	"fmt"
 	"io"
 	"sort"
 )
@@ -171,4 +172,87 @@ func sortColors(nums []int) {
 			p0++
 		}
 	}
+}
+
+func addTwoNumbers(l1, l2 *ListNode) (head *ListNode) {
+	var tail *ListNode
+	carry := 0
+	for l1 != nil || l2 != nil {
+		n1, n2 := 0, 0
+		if l1 != nil {
+			n1 = l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			n2 = l2.Val
+			l2 = l2.Next
+		}
+		sum := n1 + n2 + carry
+		sum, carry = sum%10, sum/10
+		if head == nil {
+			tail = &ListNode{Val: sum}
+			tail = head
+		} else {
+			tail.Next = &ListNode{Val: sum}
+			tail = tail.Next
+		}
+
+	}
+	if carry > 0 {
+		head.Next = &ListNode{Val: carry}
+	}
+
+	return
+}
+
+func prinListNode(node *ListNode) {
+	for node != nil {
+		fmt.Println(node.Val)
+		node = node.Next
+	}
+}
+
+/*
+数组中查找tagent
+*/
+func search(nums []int, target int) int {
+
+	left, right := 0, len(nums)-1
+	for left < right {
+		mid := (right-left)/2 - left
+		num := nums[mid]
+		if num == target {
+			return mid
+		} else if num < target {
+			right = mid - 1
+		} else {
+			left = mid + 1
+		}
+
+	}
+	return -1
+}
+
+/*
+俩个数组求交集
+*/
+func intersection(nums1 []int, nums2 []int) []int {
+	var intersection []int
+	set1 := map[int]struct{}{}
+	for _, v := range nums1 {
+		set1[v] = struct{}{}
+	}
+	set2 := map[int]struct{}{}
+	for _, v := range nums2 {
+		set2[v] = struct{}{}
+	}
+	if len(set1) > len(set2) {
+		set1, set2 = set2, set1
+	}
+	for v := range set1 {
+		if _, has := set2[v]; has {
+			intersection = append(intersection, v)
+		}
+	}
+	return intersection
 }

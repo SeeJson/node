@@ -2,6 +2,7 @@ package algo
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -125,6 +126,62 @@ func Test_sortColors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			sortColors(tt.args.nums)
 			t.Log("nums:", tt.args.nums)
+		})
+	}
+}
+
+func Test_addTwoNumbers(t *testing.T) {
+	type args struct {
+		l1 *ListNode
+		l2 *ListNode
+	}
+	node1 := ListNode{Val: 4}
+	node2 := ListNode{Val: 6}
+	node3 := ListNode{Val: 7}
+	tests := []struct {
+		name     string
+		args     args
+		wantHead *ListNode
+	}{
+		// TODO: Add test cases.
+		{
+			args: args{l1: &ListNode{Val: 3}, l2: &ListNode{Val: 8}},
+		},
+	}
+	node1.Next = &node3
+	node2.Next = &node3
+	tests[0].args.l1.Next = &node1
+	tests[0].args.l2.Next = &node2
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotHead := addTwoNumbers(tt.args.l1, tt.args.l2)
+			prinListNode(gotHead)
+
+		})
+	}
+}
+
+func Test_intersection(t *testing.T) {
+	type args struct {
+		nums1 []int
+		nums2 []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		// TODO: Add test cases.
+		{want: []int{1, 2}, args: args{
+			nums1: []int{1, 2, 3},
+			nums2: []int{1, 2, 2},
+		}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := intersection(tt.args.nums1, tt.args.nums2); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("intersection() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }
