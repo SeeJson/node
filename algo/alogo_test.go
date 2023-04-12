@@ -185,3 +185,36 @@ func Test_intersection(t *testing.T) {
 		})
 	}
 }
+
+// 测试双链表队列
+func Test_CQueue(t *testing.T) {
+	cq := Constructor()
+	for i := 0; i < 10; i++ {
+		cq.AppendTail(i)
+	}
+	cq.DeleteHead()
+	fmt.Println(cq)
+}
+
+func Test_fib(t *testing.T) {
+	type args struct {
+		n int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantSum int
+	}{
+		// TODO: Add test cases.
+		// 0 - 0 1 -1 2 -1 , 3 -2 4 - 3 5-5 6-8
+		{args: args{n: 6}, wantSum: 8},
+		{args: args{n: 600}, wantSum: 1317549726222168096},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotSum := fib(tt.args.n); gotSum != tt.wantSum {
+				t.Errorf("fib() = %v, want %v", gotSum, tt.wantSum)
+			}
+		})
+	}
+}
