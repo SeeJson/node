@@ -218,3 +218,122 @@ func Test_fib(t *testing.T) {
 		})
 	}
 }
+
+func Test_getArr(t *testing.T) {
+	type args struct {
+		arr []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		// TODO: Add test cases.
+		{args: args{arr: []int{1, 2, 3, 4, 5}}, want: []int{1, 3, 5}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getArr(tt.args.arr); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getArr() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_maxPathSum(t *testing.T) {
+	type args struct {
+		root *TreeNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		// TODO: Add test cases.
+		{args: args{root: &TreeNode{
+			Val: 1,
+			Left: &TreeNode{
+				Val:   2,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val: 4,
+				Left: &TreeNode{
+					Val:   3,
+					Left:  nil,
+					Right: nil,
+				},
+				Right: nil,
+			},
+		}},
+			want: 7},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := maxPathSum(tt.args.root); got != tt.want {
+				t.Errorf("maxPathSum() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+var (
+	treeNode = &TreeNode{
+		Val: 1,
+		Left: &TreeNode{
+			Val: 2,
+			Left: &TreeNode{
+				Val:   4,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val:   5,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+		Right: &TreeNode{
+			Val: 3,
+			Left: &TreeNode{
+				Val:   6,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val:   7,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+	}
+)
+
+func Test_Traversal(t *testing.T) {
+	fmt.Println("前序遍历", preorderTraveral(treeNode))
+	fmt.Println("后序遍历", postorderTraversal(treeNode))
+	fmt.Println("中序遍历", inorderTraversal(treeNode))
+
+}
+func Test_inorderTraversal(t *testing.T) {
+	type args struct {
+		root *TreeNode
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantRes []int
+	}{
+		// TODO: Add test cases.
+		{args: args{treeNode},
+			wantRes: []int{2, 1, 3, 4}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotRes := inorderTraversal(tt.args.root); !reflect.DeepEqual(gotRes, tt.wantRes) {
+				t.Errorf("inorderTraversal() = %v, want %v", gotRes, tt.wantRes)
+			}
+		})
+	}
+}
