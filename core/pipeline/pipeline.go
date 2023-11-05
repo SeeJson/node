@@ -3,7 +3,9 @@
 package pipeline
 
 import (
+	"fmt"
 	"sync"
+	"time"
 )
 
 // Pipeline type defines a pipeline to which processing "stages" can
@@ -133,4 +135,42 @@ func MergeChannels(inChans []chan interface{}) (outChan chan interface{}) {
 		wg.Wait()
 	}()
 	return
+}
+
+func priority_select(ch1, ch2 <-chan string) {
+	for {
+		select {
+		case val := <-ch1:
+			fmt.Println(val)
+		//default:
+		//	time.Sleep(1 * time.Second)
+		//	fmt.Println("end")
+		case val2 := <-ch2:
+		priority:
+			for {
+				select {
+				case val1 := <-ch1:
+					fmt.Println(val1)
+
+				default:
+					break priority
+				}
+			}
+			fmt.Println(val2)
+		}
+	}
+
+}
+
+func Check1() {
+	ch1 := make(chan string)
+	ch2 := make(chan string)
+	go priority_select(ch1, ch2)
+	ch2 <- "2"
+	ch1 <- "1"
+	time.Sleep(1 * time.Second)
+	ch2 <- "2"
+	ch1 <- "1"
+
+	time.Sleep(10 * time.Second)
 }
